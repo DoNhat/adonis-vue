@@ -32,5 +32,9 @@ Route.group(()=>{
   Route.get('project/:id/tasks','TaskController.index').middleware('auth');
   Route.post('project/:id/tasks','TaskController.create').middleware('auth');
 
+  Route.delete('task/:id','TaskController.delete').middleware('auth');
+  Route.patch('task/:id','TaskController.update').middleware('auth');
+  
+
 }).prefix('api');
 

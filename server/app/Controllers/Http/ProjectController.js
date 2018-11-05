@@ -24,7 +24,7 @@ class ProjectController {
 
     async delete({request, auth, params}){
         const user = auth.getUser();
-        const { id } = params.id;
+        const { id } = params;
         const project = await Project.find(id);
         if(project.user_id !== user.id){
             return response.status(403);
@@ -35,7 +35,7 @@ class ProjectController {
 
     async update({ auth, request, params}){
         const user = auth.getUser();
-        const { id } = params.id;
+        const { id } = params;
         const project = await Project.find(id);
         AuthorizationService.verityPermission(project, user);
         project.merge(request.only('title'));
