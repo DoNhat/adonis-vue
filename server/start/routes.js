@@ -26,5 +26,7 @@ Route.group(()=>{
   .middleware('auth');
   Route.delete('project/:id','ProjectController.delete')
   .middleware('auth');
+  Route.patch('project/:id','ProjectController.update')
+  .middleware('auth');
 }).prefix('api');
 
