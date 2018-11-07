@@ -20,7 +20,7 @@ Route.group(()=>{
   Route.post('auth/register', 'UserController.register');
   Route.post('auth/login', 'UserController.login');
 
-  Route.get('project','ProjectController.index')
+  Route.get('projects/:id','ProjectController.index')
   .middleware('auth');
   Route.post('project','ProjectController.create')
   .middleware('auth');

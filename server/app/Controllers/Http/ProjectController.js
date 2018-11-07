@@ -1,12 +1,16 @@
 'use strict'
-
+const Database = use('Database');
 const Project = use('App/Models/Project');
 const AuthorizationService = use('App/Services/AuthorizationService');
 
 class ProjectController {
-    async index({ auth }){
+    async index({ auth, params }){
         const user = await auth.getUser();
-        return await user.projects().fetch();
+        // var nd = await Database.select('*').from('projects');
+        // var page = params.id * 2;
+        // console.log(nd.slice(page, page+2));
+        var data =  await user.projects().offset(params.id).limit(2).fetch();
+        return data;
     }
 
     async create({auth , request }){
@@ -23,7 +27,7 @@ class ProjectController {
     }
 
     async delete({request, auth, params}){
-        const user = auth.getUser();
+        const user = await auth.getUser();
         const { id } = params;
         const project = await Project.find(id);
         if(project.user_id !== user.id){
@@ -33,11 +37,11 @@ class ProjectController {
         return project;
     }
 
-    async update({ auth, request, params}){
-        const user = auth.getUser();
+    async update({ request, auth, params}){
+        const user = await auth.getUser();
         const { id } = params;
         const project = await Project.find(id);
-        AuthorizationService.verityPermission(project, user);
+        AuthorizationService.verifyPermission(project, user);
         project.merge(request.only('title'));
         await project.save();
         return project;

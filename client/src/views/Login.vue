@@ -10,7 +10,7 @@
             </v-text-field>
             <v-alert type="error" :value="loginError" >{{ loginError }}</v-alert>
             <v-btn color="green" dark @click="login">
-                <v-icon>account_circle</v-icon>
+                <v-icon>fingerprint</v-icon>
                 Login
             </v-btn>
         </v-flex>

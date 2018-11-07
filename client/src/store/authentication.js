@@ -12,6 +12,8 @@ export default {
   },
   getters: {
     isLoggedIn(state) {
+      if(state.token)
+        router.push('/');
       return !!state.token;
     },
   },
@@ -24,6 +26,7 @@ export default {
       })
         .then(({ data }) => {
           commit('setToken', data.token);
+          commit('setRegisterPassword', null);
           router.push('/');
         })
         .catch(() => {
@@ -41,8 +44,10 @@ export default {
       })
         .then(({ data }) => {
           commit('setToken', data.token);
-        }).catch(() => {
-          commit('setLoginError', 'Login fail');
+          commit('setRegisterPassword', null);
+          router.push('/');
+        }).catch((err) => {
+          commit('setLoginError', err.message);
         });
     },
   },
@@ -54,6 +59,8 @@ export default {
       state.token = token;
       state.registerError = null;
       state.loginError = null;
+      if(token === null)
+        router.push('/login');
     },
     setLoginError(state, error) {
       state.loginError = error;
