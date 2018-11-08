@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import router from '../router';
 import Projects from '@/components/Projects.vue';
 import Tasks from '../components/Tasks.vue';
@@ -25,10 +25,14 @@ export default {
     if(!this.isLoggedIn){
       return router.push('/login');
     }
+    this.getList();
   },
   computed: {
     ...mapState('authentication', ['token']),
     ...mapGetters('authentication',['isLoggedIn'])
   },
+  methods: {
+    ...mapActions('projects', ['getList']),
+  }
 };
 </script>

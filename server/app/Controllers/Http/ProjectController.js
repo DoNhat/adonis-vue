@@ -9,7 +9,8 @@ class ProjectController {
         // var nd = await Database.select('*').from('projects');
         // var page = params.id * 2;
         // console.log(nd.slice(page, page+2));
-        var data =  await user.projects().offset(params.id).limit(2).fetch();
+        //var data =  await user.projects().offset(params.id).limit(2).fetch();
+        var data =  user.projects().fetch();
         return data;
     }
 
