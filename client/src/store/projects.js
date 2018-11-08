@@ -23,7 +23,6 @@ export default {
         });
     },
     getList({ commit, state, rootState }) {
-      console.log(state.currentProject.id);
       return HTTP().get(`/projects/${state.page}`)
         .then(({ data }) => {
           commit('fetchProjects', data);
